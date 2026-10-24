@@ -6,13 +6,13 @@ import redis
 app = Flask(__name__)
 
 # Configuration (Variables d'environnement avec valeurs de repli par défaut)
-MYSQL_HOST = os.getenv("MYSQL_HOST", "db")
+MYSQL_HOST = os.getenv("MYSQL_HOST", "mysql")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "password")
-MYSQL_DB = os.getenv("MYSQL_DATABASE", "test")
+MYSQL_DB = os.getenv("MYSQL_DATABASE", "mysql")
 MYSQL_PORT = int(os.getenv("MYSQL_PORT", 3306))
 
-REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+REDIS_HOST = os.getenv("REDIS_HOST", "redis")
 REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 
 # Initialisation du client Redis
