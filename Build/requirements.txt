@@ -1,0 +1,4 @@
+Flask>=3.0.3
+redis>=5.0.7
+PyMySQL>=1.1.1
+cryptography>=42.0.8
