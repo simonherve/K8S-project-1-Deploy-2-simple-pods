@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+tasks:
+  compose:up:
+    desc: Démarre le Docker Compose
+    cmds:
+      - docker compose -f ./Build/docker-compose.yml up -d --wait
+
+  compose:down:
+    desc: Arrête le Docker Compose
+    cmds:
+      - docker compose -f ./Build/docker-compose.yml down -v
+
+  app:init:
+    desc: Initialisation de la table users
+    cmds:
+      - curl -i -X GET http://localhost:5000/init
+
+  app:add:
+    desc: Ajoute un utilisateur
+    cmds:
+      - >
+        curl -i -X POST http://localhost:5000/users/add
+        -H "Content-Type: application/json"
+        -d '{"uid": {{.UID | default 1}}, "user": "{{.USER | default "Floyd"}}"}'
+
+  app:get:
+    desc: Récupère un utilisateur
+    cmds:
+      - curl -i -X GET http://localhost:5000/users/{{.UID | default 1}}
+
+  app:health:
+    desc: Test santé application
+    cmds:
+      - curl -i -X GET http://localhost:5000
+
+  app:scenario:
+    desc: Execute un scénario sans arrêt du Docker Compose
+    cmds:
+      - task: compose:up
+      - task: app:init
+      - task: app:add
+      - task: app:get
+      - task: compose:down
+  
