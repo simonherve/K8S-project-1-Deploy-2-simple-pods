@@ -16,6 +16,12 @@ services:
       MYSQL_ROOT_PASSWORD: password
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
   redis:
     image: redis:latest
