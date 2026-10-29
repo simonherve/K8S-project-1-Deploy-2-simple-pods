@@ -6,8 +6,10 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - mysql
-      - redis
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
   mysql:
     image: mysql:latest
